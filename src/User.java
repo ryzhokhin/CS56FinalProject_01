@@ -94,7 +94,7 @@ class Doctor extends User{
        @return the String to say if it is successful or an error occured
         */
         public String addPatient(String name, String occupation, String gender, int age, String reasonForVisit,String password){
-                return Server.getInstance().registerPatient(name, occupation, gender, age, reasonForVisit,password,super.getName(),this);
+                return Server.getInstance().registerPatient(name, occupation, gender, age, reasonForVisit,password,this);
 
         }
 }
@@ -188,7 +188,7 @@ class Admin extends User {
         @return the String to say if it is successful or an error occured
          */
         public String addDoctor(String name, String occupation, String gender, int age, String specialization, String password){
-                return Server.getInstance().registerDoctor(name, occupation, gender, age, specialization, password,super.getName());
+                return Server.getInstance().registerDoctor(name, occupation, gender, age, specialization, password);
 
         }
 
@@ -212,7 +212,7 @@ class Admin extends User {
        @return the String to say if it is successful or an error occured
         */
         public String addAdmin(String name, String occupation, String gender, int age,String password){
-                return Server.getInstance().registerAdmin(name, occupation, gender,age,password,super.getName());
+                return Server.getInstance().registerAdmin(name, occupation, gender,age,password);
         }
 }
 
@@ -244,15 +244,7 @@ class Server {
                 return ""; // Placeholder value, replace with actual logic
         }
 
-        /*
-        This method creates a new patient and add to userList, but checks to make sure class has clearance to register
-        @param Information to create a patient class and the name of the object that called the method
-        @return returns String indicating if the registraion is a success or what error has occured
-         */
-        public String registerPatient(String name, String occupation, String gender, int age, String reasonForVisit,String password, String username,Doctor doctor){
-                if(!checkClearance(username,"doctor")){
-                        return "No clearance";
-                }
+        public String registerPatient(String name, String occupation, String gender, int age, String reasonForVisit,String password,Doctor doctor){
                 if(checkDuplicates(name, occupation, gender, age)){
                         return "Duplicate data";
                 }
@@ -260,15 +252,7 @@ class Server {
                 return "Success";
         }
 
-        /*
-        This method creates a new doctor and add to userList, but checks to make sure class has clearance to register
-        @param Information to create a doctor class and the name of the object that called the method
-        @return returns String indicating if the registraion is a success or what error has occured
-         */
-        public String registerDoctor(String name, String occupation, String gender, int age, String specialization, String password,String username){
-                if(!checkClearance(username,"admin")){
-                        return "No clearance";
-                }
+        public String registerDoctor(String name, String occupation, String gender, int age, String specialization, String password){
                 if(checkDuplicates(name, occupation, gender, age)){
                         return "Duplicate data";
                 }
@@ -277,15 +261,7 @@ class Server {
 
         }
 
-        /*
-        This method creates a new admin and add to userList, but checks to make sure class has clearance to register
-        @param Information to create an admin class and the name of the object that called the method
-        @return returns String indicating if the registration succeed or error occured
-         */
-        public String registerAdmin(String name, String occupation, String gender, int age,String password,String username){
-                if(!checkClearance(username,"admin")){
-                        return "No clearance";
-                }
+        public String registerAdmin(String name, String occupation, String gender, int age,String password){
                 if(checkDuplicates(name, occupation, gender, age)){
                         return "Duplicate data";
                 }
